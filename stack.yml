@@ -1,0 +1,62 @@
+# ==============================================================================
+# SPOKE-PROTONMAIL - MODULE MANIFEST
+# ==============================================================================
+# Description: Spoke module manifest for the ProtonMail Bridge email service
+# Version: 1.0.0
+# ==============================================================================
+
+name: protonmail
+version: "1.0.0"
+description: "ProtonMail Bridge SMTP/IMAP email service (custom Docker image)"
+
+############################  REQUIREMENTS
+
+requires:
+  networks:
+    - name: troxy
+      required: true
+  hub_services: []
+
+############################  ENVIRONMENT
+
+env:
+  hub:
+    - TZ
+    - DOMAIN
+    - SPOKE_DIR
+    - SECRETS_DIR
+    - APPDATA_DIR
+    - PUID
+    - DGID
+    - LOCALTIME
+    - INSTANCE_NAME
+    - CA_CERT
+    - SSL_CERT_FILE
+    - REQUESTS_CA_BUNDLE
+    - CURL_CA_BUNDLE
+
+  module:
+    - PROTONMAIL_BRIDGE_IMAGE
+    - PROTONMAIL_BRIDGE_TAG
+    - PROTONMAIL_BRIDGE_GIT_VERSION
+    - PROTONMAIL_IP
+    - PROTONMAIL_HOST
+    - PROTONMAIL_URI
+    - PROTONMAIL_SMTP_PORT
+    - PROTONMAIL_IMAP_PORT
+    - GPG_NAME
+    - GPG_EMAIL
+
+############################  SECRETS
+
+secrets:
+  - name: proton_bridge_password
+    path: proton/proton_bridge_password
+    required: true
+    description: "ProtonMail Bridge generated password for SMTP/IMAP auth"
+
+############################  HEALTH
+
+health:
+  service: protonmail-bridge
+  check: pgrep bridge

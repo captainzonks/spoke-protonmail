@@ -1,0 +1,142 @@
+# ==============================================================================
+# SPOKE-PROTONMAIL - DOCKER COMPOSE
+# ==============================================================================
+# Description: ProtonMail Bridge SMTP/IMAP email service (custom Docker image)
+# Version: 1.0.0
+# Created: 2026-02-12
+# Modified: 2026-02-12
+# ==============================================================================
+# Module: protonmail
+# Config Sources: .env (hub vars injected by Spoke + module defaults)
+# Security: non-root (PUID:DGID), secrets via /run/secrets/, caps dropped
+# ==============================================================================
+# Container Images:
+#   PROTONMAIL_BRIDGE_IMAGE (custom build from source)
+# Documentation:
+#   - Proton Mail Bridge: https://proton.me/support/bridge
+#   - Source: https://github.com/ProtonMail/proton-bridge
+# Networks:
+#   - troxy (192.168.35.0/24) - main application network
+# Dependencies:
+#   - None (provides SMTP/IMAP to other modules)
+# ==============================================================================
+
+name: spoke-protonmail
+
+############################ EXTENSIONS
+
+x-ssl: &ssl
+  environment:
+    - SSL_CERT_FILE=${SSL_CERT_FILE}
+    - REQUESTS_CA_BUNDLE=${REQUESTS_CA_BUNDLE}
+    - CURL_CA_BUNDLE=${CURL_CA_BUNDLE}
+
+  volumes:
+    - ${CA_CERT}:/etc/ssl/certs/ca-certificates.crt:ro
+
+x-logging-important: &log
+  logging:
+    driver: json-file
+    options:
+      max-size: 50m
+      max-file: "3"
+
+############################ NETWORKS
+
+networks:
+  troxy:
+    external: true
+
+############################# SECRETS
+
+secrets:
+  proton_bridge_password:
+    file: ${SECRETS_DIR}/proton/proton_bridge_password
+
+############################# SERVICES
+
+services:
+  #======================================
+  # PROTONMAIL-BRIDGE - Email SMTP/IMAP Service
+  #======================================
+  protonmail-bridge:
+    <<: [*ssl, *log]
+    image: ${PROTONMAIL_BRIDGE_IMAGE}
+    build:
+      context: ./dockerfiles/protonmail-bridge/
+      dockerfile: Dockerfile
+      args:
+        BUILD_DATE: ${BUILD_DATE}
+        CT_TAG: ${PROTONMAIL_BRIDGE_TAG}
+        PROTON_BRIDGE_VERSION: ${PROTONMAIL_BRIDGE_GIT_VERSION}
+        PUID: ${PUID:-1000}
+        PGID: ${DGID:-968}
+        GPG_NAME: ${GPG_NAME:-proton-user}
+        GPG_EMAIL: ${GPG_EMAIL:-proton@fake.me}
+        GPG_COMMENT: "Proton Mail Bridge Key"
+
+    hostname: proton
+    container_name: protonmail-bridge
+    restart: on-failure
+    init: true
+
+    security_opt:
+      - no-new-privileges=true
+    mem_limit: 512M
+    cpus: 1.0
+    cap_drop:
+      - ALL
+    user: ${PUID}:${DGID}
+
+    networks:
+      troxy:
+        ipv4_address: ${PROTONMAIL_IP}
+
+    expose:
+      - 25/tcp
+      - 143/tcp
+      - 465/tcp
+      - 587/tcp
+      - 993/tcp
+
+    healthcheck:
+      test: ["CMD", "pgrep", "bridge"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    command:
+      - proton-bridge
+      - --noninteractive
+
+    environment:
+      - TZ=${TZ}
+      - DOMAIN=${DOMAIN}
+      - HOSTNAME=${INSTANCE_NAME}
+      - PROTON_USER=${GPG_NAME}
+      - PROTON_EMAIL=${GPG_EMAIL}
+      - PROTON_BRIDGE_PASSWORD_FILE=/run/secrets/proton_bridge_password
+      - PROTONMAIL_HOST=${PROTONMAIL_HOST}
+      - PROTONMAIL_URI=${PROTONMAIL_URI}
+      - PROTONMAIL_BRIDGE_NO_AUTOUPDATE=1
+      - PROTONMAIL_BRIDGE_LOG_LEVEL=debug
+      - PROTONMAIL_BRIDGE_DISABLE_TELEMETRY=1
+      - SMTP_INSIDE_PORT=${PROTONMAIL_SMTP_PORT}
+      - IMAP_INSIDE_PORT=${PROTONMAIL_IMAP_PORT}
+
+    volumes:
+      - ${APPDATA_DIR}/protonmail-bridge/proton/.config/:/home/proton/.config/:rw
+      - ${APPDATA_DIR}/protonmail-bridge/proton/.gnupg/:/home/proton/.gnupg/:rw
+      - ${APPDATA_DIR}/protonmail-bridge/proton/.local/:/home/proton/.local/:rw
+      - ${APPDATA_DIR}/protonmail-bridge/proton/.password-store/:/home/proton/.password-store/:rw
+      - ${APPDATA_DIR}/protonmail-bridge/ssmtp/:/etc/ssmtp/:rw
+      - ${LOCALTIME}:/etc/localtime:ro
+
+    tmpfs:
+      - /home/proton/.cache:rw,size=100m,uid=1000,gid=968,mode=0700
+      - /tmp/:rw,size=100m
+      - /run/:rw,size=50m
+
+    secrets:
+      - proton_bridge_password
