@@ -1,5 +1,7 @@
 # spoke-protonmail
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E21U3S1R)
+
 Spoke module for [Proton Mail Bridge](https://proton.me/support/bridge) — a custom Docker image providing SMTP/IMAP email service via ProtonMail.
 
 ## Services
