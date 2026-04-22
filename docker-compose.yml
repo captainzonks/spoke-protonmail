@@ -1,24 +1,30 @@
 # ==============================================================================
-# SPOKE-PROTONMAIL - DOCKER COMPOSE
+# PROTONMAIL MODULE - DOCKER COMPOSE
 # ==============================================================================
 # Description: ProtonMail Bridge SMTP/IMAP email service (custom Docker image)
-# Version: 1.0.0
+# Author: Matt Barham
 # Created: 2026-02-12
-# Modified: 2026-02-12
+# Modified: 2026-04-21
+# Version: 1.0.1
+# Host: Your Server
 # ==============================================================================
-# Module: protonmail
-# Config Sources: .env (hub vars injected by Spoke + module defaults)
-# Security: non-root (PUID:DGID), secrets via /run/secrets/, caps dropped
+# Component: module: protonmail
+# Config Sources: base.env + .env.example + modules.yml overrides → .env (generated)
+# Security: non-root (PUID:DGID), secrets via /run/secrets/, caps dropped,
+#           no-new-privileges, custom image built from pinned source tag
 # ==============================================================================
 # Container Images:
-#   PROTONMAIL_BRIDGE_IMAGE (custom build from source)
+#   See modules/protonmail/.env.example for complete image paths and versions
+#   (PROTONMAIL_BRIDGE_IMAGE - custom build from source)
 # Documentation:
 #   - Proton Mail Bridge: https://proton.me/support/bridge
 #   - Source: https://github.com/ProtonMail/proton-bridge
 # Networks:
 #   - troxy (192.168.35.0/24) - main application network
 # Dependencies:
-#   - None (provides SMTP/IMAP to other modules)
+#   - Hub: none (provides SMTP/IMAP to other modules)
+# External Integrations:
+#   - [ ] Traefik routing (SMTP/IMAP consumed internally over troxy)
 # ==============================================================================
 
 name: spoke-protonmail

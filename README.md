@@ -1,5 +1,21 @@
 # spoke-protonmail
 
+<!--
+==============================================================================
+README.md - spoke-protonmail module documentation
+==============================================================================
+Description: ProtonMail Bridge SMTP/IMAP email service Spoke module
+Author: Matt Barham
+Created: 2026-02-12
+Modified: 2026-04-21
+Version: 1.0.1
+==============================================================================
+Document Type: Reference
+Audience: Developer
+Status: Final
+==============================================================================
+-->
+
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E21U3S1R)
 
 Spoke module for [Proton Mail Bridge](https://proton.me/support/bridge) — a custom Docker image providing SMTP/IMAP email service via ProtonMail.

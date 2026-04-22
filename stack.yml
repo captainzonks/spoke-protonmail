@@ -1,12 +1,19 @@
 # ==============================================================================
-# SPOKE-PROTONMAIL - MODULE MANIFEST
+# PROTONMAIL MODULE - STACK MANIFEST
 # ==============================================================================
 # Description: Spoke module manifest for the ProtonMail Bridge email service
-# Version: 1.0.0
+# Author: Matt Barham
+# Created: 2026-02-12
+# Modified: 2026-04-21
+# Version: 1.0.1
+# Host: Your Server
+# ==============================================================================
+# Type: Spoke Module Manifest
+# Component: module: protonmail
 # ==============================================================================
 
 name: protonmail
-version: "1.0.0"
+version: "1.0.1"
 description: "ProtonMail Bridge SMTP/IMAP email service (custom Docker image)"
 
 ############################  REQUIREMENTS

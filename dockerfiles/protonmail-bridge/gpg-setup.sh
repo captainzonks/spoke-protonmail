@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# GPG-SETUP - Generate ECC GPG key for Proton Mail Bridge
+# PROTONMAIL MODULE - GPG SETUP SCRIPT
 # ==============================================================================
 # Description: Generates an ECC GPG key pair for use with pass credential store
-# Version: 1.0.0
+# Author: Matt Barham
+# Created: 2025-06-12
+# Modified: 2026-04-21
+# Version: 1.0.1
+# Host: Your Server
 # ==============================================================================
-# Designed to work with GnuPG v2.1 and later, unattended
+# Type: Shell Script
+# Component: module: protonmail / service: protonmail-bridge
+# Notes: Designed to work with GnuPG v2.1 and later, unattended
 # ==============================================================================
 
 # For debugging

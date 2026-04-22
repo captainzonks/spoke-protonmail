@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# MAILUTILS-SETUP - Configure mail sending through Proton Mail Bridge
+# PROTONMAIL MODULE - MAILUTILS SETUP SCRIPT
 # ==============================================================================
 # Description: Sets up /etc/mail.rc and /etc/ssmtp/ssmtp.conf for email testing
-# Version: 1.0.0
+# Author: Matt Barham
+# Created: 2025-06-12
+# Modified: 2026-04-21
+# Version: 1.0.1
+# Host: Your Server
+# ==============================================================================
+# Type: Shell Script
+# Component: module: protonmail / service: protonmail-bridge
 # ==============================================================================
 
 setup_dir() {
