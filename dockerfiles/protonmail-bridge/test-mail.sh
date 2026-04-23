@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# TEST-MAIL - Test mail sending through Proton Mail Bridge
+# PROTONMAIL MODULE - TEST MAIL SCRIPT
 # ==============================================================================
 # Description: Validates SMTP connectivity and sends test emails
-# Version: 1.0.0
+# Author: Matt Barham
+# Created: 2025-06-12
+# Modified: 2026-04-21
+# Version: 1.0.1
+# Host: Your Server
 # ==============================================================================
+# Type: Shell Script
+# Component: module: protonmail / service: protonmail-bridge
 # Usage: test-mail.sh [recipient_email]
 #   If no recipient specified, sends to PROTON_EMAIL
 # ==============================================================================

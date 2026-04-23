@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# ENTRYPOINT - ProtonMail Bridge Docker Container
+# PROTONMAIL MODULE - PROTONMAIL-BRIDGE ENTRYPOINT
 # ==============================================================================
 # Description: Handles setup of directories, GPG, Pass keyring and launches bridge
-# Version: 2.1.0
+# Author: Matt Barham
+# Created: 2025-06-12
+# Modified: 2026-04-21
+# Version: 2.1.1
+# Host: Your Server
 # ==============================================================================
+# Type: Shell Script
+# Component: module: protonmail / service: protonmail-bridge
 # Dependencies:
 #   - proton-bridge binary
 #   - gpg, pass, socat

@@ -1,12 +1,17 @@
 # ==============================================================================
-# DOCKERFILE - ProtonMail Bridge SMTP/IMAP Server
+# PROTONMAIL MODULE - PROTONMAIL-BRIDGE DOCKERFILE
 # ==============================================================================
 # Description: Multi-stage build for ProtonMail Bridge with GPG and mailutils
+# Author: Matt Barham
 # Created: 2025-06-12
-# Modified: 2026-02-12
-# Version: 3.22.0-custom
+# Modified: 2026-04-21
+# Version: 3.22.1-custom
+# Host: Your Server
 # ==============================================================================
+# Type: Dockerfile
 # Base Images: golang:1.24-bookworm (builder), debian:bookworm-slim (runtime)
+# Documentation: https://proton.me/support/bridge
+# Component: module: protonmail / service: protonmail-bridge
 # Target Architecture: amd64
 # Security: non-root user (configurable UID/GID), GPG/pass integration
 # ==============================================================================
