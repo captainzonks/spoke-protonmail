@@ -33,7 +33,7 @@
 # ==============================================================================
 
 ############################ BUILD PROTON MAIL BRIDGE ##############################
-FROM golang:1.24-bookworm AS go-builder
+FROM golang:1.26.2-bookworm AS go-builder
 WORKDIR /build/
 
 RUN apt update -y
