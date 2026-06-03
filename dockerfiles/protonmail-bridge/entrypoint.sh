@@ -6,7 +6,7 @@
 # Author: Matt Barham
 # Created: 2025-06-12
 # Modified: 2026-06-03
-# Version: 2.1.2
+# Version: 2.1.3
 # Host: Your Server
 # ==============================================================================
 # Type: Shell Script
@@ -19,7 +19,7 @@
 #   - Starts socat port forwarding AFTER bridge is ready (fixed race condition)
 #   - Only starts socat in --noninteractive mode
 #   - For initial setup, use --cli mode without socat
-#   - Cache directory uses tmpfs mount to avoid permission issues
+#   - Cache directory is a persistent bind-mount; entrypoint owns it on first boot
 # ==============================================================================
 
 # For debugging (uncomment if needed)
@@ -114,9 +114,9 @@ setup_dir "${HOME}/.config/protonmail/bridge"
 setup_dir "${HOME}/.config/protonmail/bridge-v3"
 setup_dir "${HOME}/.local/share"
 setup_dir "${HOME}/.local/share/protonmail/bridge-v3"
-# .cache is tmpfs (or bind-mount) in compose; recreate the bridge cache tree
-# every start so the unleash startup-flag cache has an owned dir to write into.
-# Suppresses "no such file or directory" WARN from pkg=unleash-startup.
+# .cache is a persistent bind-mount in compose; ensure the bridge cache tree
+# exists and is owned by PUID:PGID on first boot (empty volume) so the unleash
+# startup-flag cache survives recreation and bridge can write into it.
 setup_dir "${HOME}/.cache/protonmail/bridge-v3/unleash_startup_cache"
 echo "#####"
 echo "Directories created:"
