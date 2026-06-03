@@ -5,7 +5,7 @@
 # Author: Matt Barham
 # Created: 2026-02-12
 # Modified: 2026-06-03
-# Version: 1.0.2
+# Version: 1.0.3
 # Host: Your Server
 # ==============================================================================
 # Component: module: protonmail
@@ -136,11 +136,11 @@ services:
       - ${APPDATA_DIR}/protonmail-bridge/proton/.gnupg/:/home/proton/.gnupg/:rw
       - ${APPDATA_DIR}/protonmail-bridge/proton/.local/:/home/proton/.local/:rw
       - ${APPDATA_DIR}/protonmail-bridge/proton/.password-store/:/home/proton/.password-store/:rw
+      - ${APPDATA_DIR}/protonmail-bridge/proton/.cache/:/home/proton/.cache/:rw
       - ${APPDATA_DIR}/protonmail-bridge/ssmtp/:/etc/ssmtp/:rw
       - ${LOCALTIME}:/etc/localtime:ro
 
     tmpfs:
-      - /home/proton/.cache:rw,size=100m,uid=1000,gid=968,mode=0700
       - /tmp/:rw,size=100m
       - /run/:rw,size=50m
 
