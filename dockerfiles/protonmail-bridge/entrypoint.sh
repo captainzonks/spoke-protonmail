@@ -5,8 +5,8 @@
 # Description: Handles setup of directories, GPG, Pass keyring and launches bridge
 # Author: Matt Barham
 # Created: 2025-06-12
-# Modified: 2026-04-21
-# Version: 2.1.1
+# Modified: 2026-06-03
+# Version: 2.1.2
 # Host: Your Server
 # ==============================================================================
 # Type: Shell Script
@@ -114,7 +114,10 @@ setup_dir "${HOME}/.config/protonmail/bridge"
 setup_dir "${HOME}/.config/protonmail/bridge-v3"
 setup_dir "${HOME}/.local/share"
 setup_dir "${HOME}/.local/share/protonmail/bridge-v3"
-# Note: .cache is tmpfs mount in compose file
+# .cache is tmpfs (or bind-mount) in compose; recreate the bridge cache tree
+# every start so the unleash startup-flag cache has an owned dir to write into.
+# Suppresses "no such file or directory" WARN from pkg=unleash-startup.
+setup_dir "${HOME}/.cache/protonmail/bridge-v3/unleash_startup_cache"
 echo "#####"
 echo "Directories created:"
 ls -la "${HOME}"
