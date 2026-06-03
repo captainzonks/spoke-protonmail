@@ -7,8 +7,8 @@ README.md - spoke-protonmail module documentation
 Description: ProtonMail Bridge SMTP/IMAP email service Spoke module
 Author: Matt Barham
 Created: 2026-02-12
-Modified: 2026-04-23
-Version: 1.0.1
+Modified: 2026-06-03
+Version: 1.0.2
 ==============================================================================
 Document Type: Reference
 Audience: Developer
@@ -74,8 +74,8 @@ docker compose restart
 
 | Variable                         | Default                    | Description                        |
 |----------------------------------|----------------------------|------------------------------------|
-| `PROTONMAIL_BRIDGE_GIT_VERSION`  | `v3.24.1`                 | ProtonMail Bridge source version   |
-| `PROTONMAIL_BRIDGE_TAG`          | `1.0_v3.24.1-custom`      | Docker image tag                   |
+| `PROTONMAIL_BRIDGE_GIT_VERSION`  | `v3.24.2`                 | ProtonMail Bridge source version   |
+| `PROTONMAIL_BRIDGE_TAG`          | `1.0_v3.24.2-custom`      | Docker image tag                   |
 | `PROTONMAIL_BRIDGE_IMAGE`        | `spoke/protonmail-bridge:...` | Full image reference            |
 | `PROTONMAIL_IP`                  | `192.168.35.20`            | Static IP on troxy network         |
 | `PROTONMAIL_HOST`                | `mail.${DOMAIN}`           | Bridge hostname                    |

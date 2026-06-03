@@ -4,8 +4,8 @@
 # Description: ProtonMail Bridge SMTP/IMAP email service (custom Docker image)
 # Author: Matt Barham
 # Created: 2026-02-12
-# Modified: 2026-04-21
-# Version: 1.0.1
+# Modified: 2026-06-03
+# Version: 1.0.2
 # Host: Your Server
 # ==============================================================================
 # Component: module: protonmail
