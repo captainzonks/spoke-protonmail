@@ -5,7 +5,7 @@
 # Author: Matt Barham
 # Created: 2026-02-12
 # Modified: 2026-06-03
-# Version: 1.0.2
+# Version: 1.0.3
 # Host: Your Server
 # ==============================================================================
 # Type: Spoke Module Manifest
@@ -13,7 +13,7 @@
 # ==============================================================================
 
 name: protonmail
-version: "1.0.2"
+version: "1.0.3"
 description: "ProtonMail Bridge SMTP/IMAP email service (custom Docker image)"
 
 ############################  REQUIREMENTS
