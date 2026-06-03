@@ -8,7 +8,7 @@ Description: ProtonMail Bridge SMTP/IMAP email service Spoke module
 Author: Matt Barham
 Created: 2026-02-12
 Modified: 2026-06-03
-Version: 1.0.2
+Version: 1.0.3
 ==============================================================================
 Document Type: Reference
 Audience: Developer
@@ -100,6 +100,23 @@ This module builds ProtonMail Bridge from source with:
 - **mailutils + ssmtp**: Built-in email testing tools
 - **Socat port forwarding**: Maps internal bridge ports to standard SMTP/IMAP ports
 - **Non-root execution**: Configurable UID/GID via build args
+- **Persistent appdata**: Config, GPG keys, pass store, and bridge cache are
+  bind-mounted to appdata so they survive container recreation
+
+### Persistent Volumes
+
+| Container path                | Purpose                                          |
+|-------------------------------|--------------------------------------------------|
+| `/home/proton/.config`        | Bridge settings (`settings.json`, vault)         |
+| `/home/proton/.gnupg`         | GPG keyring backing the pass credential store    |
+| `/home/proton/.local`         | Bridge data and logs                             |
+| `/home/proton/.password-store`| `pass` store holding the bridge keychain         |
+| `/home/proton/.cache`         | Bridge cache (e.g. unleash startup feature flags)|
+| `/etc/ssmtp`                  | ssmtp config for the mail test tooling           |
+
+The `.cache` mount keeps the unleash startup-flag cache across recreations;
+`entrypoint.sh` creates and chowns the cache tree on a fresh (empty) volume so
+the non-root bridge can write to it. Only `/tmp` and `/run` remain on tmpfs.
 
 ### Build Scripts
 
