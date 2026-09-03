@@ -4,8 +4,8 @@
 # Description: Multi-stage build for ProtonMail Bridge with GPG and mailutils
 # Author: Matt Barham
 # Created: 2025-06-12
-# Modified: 2026-06-03
-# Version: 3.24.2-custom
+# Modified: 2026-09-03
+# Version: 3.26.0-custom
 # Host: Your Server
 # ==============================================================================
 # Type: Dockerfile
@@ -17,10 +17,10 @@
 # ==============================================================================
 # Build Command:
 #   docker build --build-arg PUID=1000 --build-arg PGID=968 \
-#     --build-arg PROTON_BRIDGE_VERSION=v3.24.2 \
+#     --build-arg PROTON_BRIDGE_VERSION=v3.26.0 \
 #     --build-arg GPG_NAME="proton-user" \
 #     --build-arg GPG_EMAIL="proton@fake.me" \
-#     -t protonmail-bridge:3.24.2-custom .
+#     -t protonmail-bridge:3.26.0-custom .
 # ==============================================================================
 # Features:
 #   - Builds ProtonMail Bridge from source
@@ -44,7 +44,7 @@ RUN apt install -y --no-install-recommends \
     pkg-config
 
 # Clone Proton Mail Bridge repository (adjust version as needed)
-ARG PROTON_BRIDGE_VERSION="v3.24.2" # can be overridden from build file
+ARG PROTON_BRIDGE_VERSION="v3.26.0" # can be overridden from build file
 ADD https://github.com/ProtonMail/proton-bridge.git#${PROTON_BRIDGE_VERSION} /build/
 
 # Build Proton Mail Bridge
